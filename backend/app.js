@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -33,6 +34,7 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
+app.use(cors());
 app.use(requestLogger);
 app.use(auth);
 app.use('/users', require('./routes/users'));
