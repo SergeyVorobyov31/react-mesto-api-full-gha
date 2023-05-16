@@ -25,8 +25,8 @@ function Login(props) {
           return;
         }
         auth.authorize(formValue.email, formValue.password)
-        .then((data) => {
-            if (data.token){
+        .then((res) => {
+            if (res.token) {
                 localStorage.setItem("email", formValue.email);
                 setFormValue({username: '', password: ''});
                 props.handleLogin();
@@ -34,7 +34,6 @@ function Login(props) {
             }
         })
         .catch((err) => {
-            console.log(err);
             props.onErrorPopup();
         });
     }

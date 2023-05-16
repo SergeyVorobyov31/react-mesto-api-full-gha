@@ -23,7 +23,7 @@ function Registration({element: Component, ...props}) {
         e.preventDefault();
         auth.register(formValue.email, formValue.password)
         .then((res) => {
-            if(res.data) {
+            if(res) {
                 props.onSuccessPopup();
             }
         })

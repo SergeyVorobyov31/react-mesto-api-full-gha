@@ -7,6 +7,7 @@ class Api {
 
     _checkResponse(res) {
             if (res.ok) {
+                console.log(this._id);
                 return res.json();
             }
             return Promise.reject(`Что-то пошло не так: ${res.status}`);
@@ -104,9 +105,9 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-58',
+    baseUrl: 'https://api.mesto.net.nomoredomains.monster',
     headers: {
-      authorization: '3ff37044-95e4-4bd3-b490-b086237c1a77',
+      authorization: `${localStorage.jwt}`,
       'Content-Type': 'application/json'
     }
   });

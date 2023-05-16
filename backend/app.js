@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://127.0.0.1/mestodb').then(() => console.log('Успешное подключение к MongoDB')).catch((err) => console.error('Ошибка подключения:', err));
 
+app.use(cors());
+
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -34,7 +36,6 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.use(cors());
 app.use(requestLogger);
 app.use(auth);
 app.use('/users', require('./routes/users'));

@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co/';
+export const BASE_URL = 'https://api.mesto.net.nomoredomains.monster/';
 
 const _checkResponse = (res) => {
     if (res.ok) {
@@ -18,7 +18,7 @@ export const register = (email, password) => {
     })
     .then(res => _checkResponse(res))
     .then((res) => {
-        return res
+        return res;
     })
 };
 
@@ -38,6 +38,7 @@ export const authorize = (email, password) => {
             return res;
         }
     })
+    .catch(err => console.log(err));
 };
 
 export const checkToken = (token) => {
@@ -45,7 +46,7 @@ export const checkToken = (token) => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `${token}`,
       }
     })
     .then(res => _checkResponse(res))
