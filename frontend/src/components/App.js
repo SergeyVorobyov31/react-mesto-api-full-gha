@@ -123,13 +123,12 @@ function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
-
+        const isLiked = card.likes.some(i => i === currentUser._id);
         api.changeLikeCard(card._id, !isLiked)
         .then((newCard) => {
-            setInitialCards((state) => state.map((item) => 
-            item._id === card._id ? newCard : item
-            ));
+            setInitialCards((state) => {
+                return state.map((item) =>  item._id === card._id ? newCard : item);
+            });
         })
         .catch(err => console.log(err));
     }
@@ -185,10 +184,8 @@ function App() {
     function handleTokenCheck() {
         if (localStorage.getItem('jwt')){
             const jwt = localStorage.getItem('jwt');
-            console.log(localStorage);
             auth.checkToken(jwt)
             .then((res) => {
-                console.log(res);
                 if (res){
                     setLoggedIn(true);
                     navigate("/", {replace: true})

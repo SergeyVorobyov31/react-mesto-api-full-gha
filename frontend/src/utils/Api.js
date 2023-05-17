@@ -7,7 +7,6 @@ class Api {
 
     _checkResponse(res) {
             if (res.ok) {
-                console.log(this._id);
                 return res.json();
             }
             return Promise.reject(`Что-то пошло не так: ${res.status}`);
@@ -19,7 +18,7 @@ class Api {
         })
         .then(res => this._checkResponse(res))
         .then((result) => {
-            return result
+            return result;
         })
     }
 
