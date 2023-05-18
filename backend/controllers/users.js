@@ -146,12 +146,6 @@ module.exports.login = (req, res, next) => {
             return next(new UnauthorizedError('Неправильные почта или пароль'));
           }
           const token = jwt.sign({ id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
-          res.cookie('jwt', token, {
-            maxAge: 3600000 * 24 * 7,
-            httpOnly: true,
-          });
-          // res.send({ message: 'Успешно' });
-          // res.send(JSON.stringify(token));
           res.send({ token });
           return token;
         });

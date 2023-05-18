@@ -103,12 +103,4 @@ class Api {
     }
 }
 
-const api = new Api({
-    baseUrl: 'https://api.mesto.net.nomoredomains.monster',
-    headers: {
-      authorization: `${localStorage.jwt}`,
-      'Content-Type': 'application/json'
-    }
-  });
-
-export default api
+export default Api

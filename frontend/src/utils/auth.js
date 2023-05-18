@@ -34,7 +34,8 @@ export const authorize = (email, password) => {
     .then(res => _checkResponse(res))
     .then((res) => {
         if(res.token) {
-            localStorage.setItem('jwt', res.token)
+            localStorage.setItem('jwt', res.token);
+            localStorage.setItem('email', email);
             return res;
         }
     })
@@ -46,7 +47,7 @@ export const checkToken = (token) => {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `${token}`,
+        authorization: `${token}`,
       }
     })
     .then(res => _checkResponse(res))

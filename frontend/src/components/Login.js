@@ -28,6 +28,7 @@ function Login(props) {
         .then((res) => {
             if (res.token) {
                 localStorage.setItem("email", formValue.email);
+                localStorage.setItem('jwt', res.token);
                 setFormValue({username: '', password: ''});
                 props.handleLogin();
                 navigate('/', {replace: true});

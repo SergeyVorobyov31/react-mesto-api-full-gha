@@ -9,7 +9,7 @@ const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3006 } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -19,6 +19,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect('mongodb://127.0.0.1/mestodb').then(() => console.log('Успешное подключение к MongoDB')).catch((err) => console.error('Ошибка подключения:', err));
 
 app.use(cors());
+app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
@@ -36,7 +43,6 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.use(requestLogger);
 app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));

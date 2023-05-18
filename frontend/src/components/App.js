@@ -5,7 +5,6 @@ import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
-import api from "../utils/Api.js";
 import Cards from "./Cards.js";
 import CurrentUserContext from "../context/CurrentUserContext.js";
 import EditProfilePopup from "./EditProfilePopup.js";
@@ -15,6 +14,7 @@ import Login from "./Login.js";
 import Registration from "./Registration.js";
 import ProtectedRouteElement from "./ProtectedRouteElement.js";
 import * as auth from "../utils/auth.js";
+import Api from "../utils/Api.js";
 
 import InfoToolTip from "./InfoToolTip.js";
 import errorLogin from '../images/errorLogin.png';
@@ -37,11 +37,35 @@ function App() {
     const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.link || isErrorPopup || isSuccessPopup;
     const navigate = useNavigate();
     
+    const api = new Api({
+        baseUrl: 'https://api.mesto.net.nomoredomains.monster',
+        headers: {
+          authorization: `${localStorage.jwt}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
     useEffect(() => {
-        fetchUserData();
-        getDefaultCard();
-        handleTokenCheck();
-    }, [])
+        const token = localStorage.getItem('jwt');
+        if (token && loggedIn) {
+          fetchUserData();
+          getDefaultCard();
+        }
+    }, [loggedIn]);
+    
+    useEffect(() => {
+        const token = localStorage.getItem('jwt');
+        if (token) {
+             auth.checkToken(token)
+            .then((res) => {
+                if (res){
+                    setLoggedIn(true);
+                    navigate("/", {replace: true})
+                }
+            })
+            .catch(err => console.log(err));
+        }
+    }, []);
 
     useEffect(() => {
         function closeByEscape(evt) {
@@ -56,8 +80,7 @@ function App() {
             }
           }
     }, [isOpen])
-    
-    
+
     function fetchUserData() {
         api.getUserData()
         .then(data => {
@@ -179,20 +202,6 @@ function App() {
         .finally(() => {
             setIsLoading(true);
         })
-    }
-
-    function handleTokenCheck() {
-        if (localStorage.getItem('jwt')){
-            const jwt = localStorage.getItem('jwt');
-            auth.checkToken(jwt)
-            .then((res) => {
-                if (res){
-                    setLoggedIn(true);
-                    navigate("/", {replace: true})
-                }
-            })
-            .catch(err => console.log(err));
-        }
     }
 
     const handleLogin = () => {
