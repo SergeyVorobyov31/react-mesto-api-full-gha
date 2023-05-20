@@ -12,8 +12,15 @@
     border: 0;
     transition: color .2s linear;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .header__button:hover {
     color: #A9A9A9;
+}
+
+@media screen and (max-width: 649px) {
+    .header__button {
+        margin: 0 0 30px;
+   }
 }

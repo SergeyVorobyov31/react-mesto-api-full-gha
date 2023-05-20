@@ -17,3 +17,9 @@
 .sign__input:last-of-type {
     margin: 0 auto 216px;
 }
+
+@media screen and (max-width: 360px) {
+    .sign__input {
+        min-width: 280px;
+   }
+}

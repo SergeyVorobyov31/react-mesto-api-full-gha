@@ -8,7 +8,7 @@
 
 @media screen and (min-width: 650px) and (max-width: 900px) {
     .page {
-        max-width: 90%;
+        max-width: 100%;
     }
 }
 
