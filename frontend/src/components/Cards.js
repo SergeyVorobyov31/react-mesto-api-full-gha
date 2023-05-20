@@ -1,6 +1,7 @@
 import Card from "./Card.js";
 
 function Cards({array, onCardClick, onCardLike, onCardDelete}) {
+    console.log(array);
     return(
         <ul className="elements__list">
             {array.map((item) => {
