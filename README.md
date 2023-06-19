@@ -8,12 +8,18 @@ Mesto - интерактивная страница, куда можно доб�
 Адрес репозитория: https://github.com/SergeyVorobyov31/react-mesto-api-full-gha
 
 На данном сайте реализованы технологии:
--HTML
--CSS
--JavaScript
--ReactJS
--MongoDB
--Express.js
+
+1) HTML
+
+2) CSS
+
+3) JavaScript
+
+4) ReactJS
+
+5) MongoDB
+
+6) Express.js
 
 ## Ссылки на проект
 
